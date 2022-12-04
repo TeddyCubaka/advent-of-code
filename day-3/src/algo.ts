@@ -57,6 +57,7 @@ let items: string[] = [
 	"Z",
 ];
 let count: number = 0;
+let sum: number = 0;
 
 function filterArr(arr1: string[], arr2: string[]) {
 	let arr: string[] = [];
@@ -67,7 +68,9 @@ function filterArr(arr1: string[], arr2: string[]) {
 }
 
 fs.readFile(path, "utf8", (err, data) => {
+	if (err) throw err;
 	let strs: string[] = data.split("\n");
+	let groups = [];
 
 	strs.map((str) => {
 		const semi = str.split("");
@@ -79,5 +82,18 @@ fs.readFile(path, "utf8", (err, data) => {
 		const set2 = _.uniq(t2);
 		filterArr(set1, set2);
 	});
-	console.log(count);
+	strs.forEach((data, index) => {
+		if (index % 3 == 0) {
+			let group: string[] = [];
+			group = strs.slice(index, index + 3);
+			let common: string[] = [];
+			group[0].split("").map((data) => {
+				if (group[1].indexOf(data) !== -1 && group[2].indexOf(data) !== -1)
+					common.push(data);
+			});
+			sum += items.indexOf(common[0]) + 1;
+		}
+	});
+	console.log(count); //first question
+	console.log(sum); //second question
 });

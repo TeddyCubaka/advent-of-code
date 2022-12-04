@@ -58,6 +58,7 @@ var items = [
     "Z",
 ];
 var count = 0;
+var sum = 0;
 function filterArr(arr1, arr2) {
     var arr = [];
     arr1.map(function (data) {
@@ -67,7 +68,10 @@ function filterArr(arr1, arr2) {
     count += items.indexOf(arr[0]) + 1;
 }
 fs.readFile(path, "utf8", function (err, data) {
+    if (err)
+        throw err;
     var strs = data.split("\n");
+    var groups = [];
     strs.map(function (str) {
         var semi = str.split("");
         var t1 = semi.slice(0, semi.length / 2);
@@ -76,5 +80,18 @@ fs.readFile(path, "utf8", function (err, data) {
         var set2 = _.uniq(t2);
         filterArr(set1, set2);
     });
-    console.log(count);
+    strs.forEach(function (data, index) {
+        if (index % 3 == 0) {
+            var group_1 = [];
+            group_1 = strs.slice(index, index + 3);
+            var common_1 = [];
+            group_1[0].split("").map(function (data) {
+                if (group_1[1].indexOf(data) !== -1 && group_1[2].indexOf(data) !== -1)
+                    common_1.push(data);
+            });
+            sum += items.indexOf(common_1[0]) + 1;
+        }
+    });
+    console.log(count); //first question
+    console.log(sum); //second question
 });
