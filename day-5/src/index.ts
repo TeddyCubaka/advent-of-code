@@ -6,9 +6,31 @@ interface Stack {
 }
 
 let stacks: Stack[] = [];
+let secStacks: Stack[] = [];
 
 let position: number[] = [];
 let topCrate: string = "";
+let topCrate2: string = "";
+
+function CrateMover9001(arr: string[]): string {
+	arr.map((data) => {
+		const move = data.split(" ");
+		const s1 = secStacks[parseInt(move[3]) - 1].suite;
+		const s2 = secStacks[parseInt(move[5]) - 1].suite;
+
+		for (let i = parseInt(move[1]) - 1; i >= 0; i--) {
+			s2.unshift(s1[i]);
+		}
+		s1.splice(0, parseInt(move[1]));
+	});
+
+	secStacks.map((data) => {
+		topCrate2 += data.suite[0];
+	});
+
+	console.log("second string :", topCrate2);
+	return "";
+}
 
 fs.readFile("inputs.txt", (err, data) => {
 	if (err) throw err;
@@ -27,12 +49,18 @@ fs.readFile("inputs.txt", (err, data) => {
 				index: index,
 				suite: [],
 			});
+			secStacks.push({
+				index: index,
+				suite: [],
+			});
 		});
 
 	res.map((data, id) => {
 		data.split("").map((str, index) => {
-			if (position.indexOf(index) > -1 && str !== " ")
+			if (position.indexOf(index) > -1 && str !== " ") {
 				stacks[position.indexOf(index)].suite.push(str);
+				secStacks[position.indexOf(index)].suite.push(str);
+			}
 		});
 	});
 
@@ -52,11 +80,12 @@ fs.readFile("inputs.txt", (err, data) => {
 				for (let i = 0; i < i1; i++) {
 					s2.unshift(s1[i]);
 				}
-				s1.splice(0, i1);
+				s1.splice(0, parseInt(move[1]));
 			});
 		stacks.map((data) => {
 			topCrate += data.suite[0];
 		});
-		console.log(topCrate);
+		CrateMover9001(res.toString().split("\n"));
+		console.log("first string :", topCrate);
 	});
 });
