@@ -55,9 +55,9 @@ fs.readFile(path, (err, data) => {
 
 	//the unser for the first question
 	result.map((num) => (count += num));
-	console.log(count);
+	console.log("first question :", count);
 
 	//the unser for the second question
 	result2.map((num) => (count2 += num));
-	console.log(count2);
+	console.log("second question :", count2);
 });
