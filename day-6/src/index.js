@@ -8,7 +8,10 @@ fs.readFile("inputs.txt", function (err, res) {
     var arr = res.toString().split("");
     var i = 0;
     while (i >= 0) {
-        var temp = [arr[i], arr[i + 1], arr[i + 2], arr[i + 3]];
+        var temp = [];
+        for (var b = i; b < 4 + i; b++) {
+            temp.push(arr[b]);
+        }
         var unique = _.uniq(temp);
         if (unique.length === 4)
             console.log("first question :", i + 4);

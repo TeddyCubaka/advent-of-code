@@ -6,7 +6,10 @@ fs.readFile("inputs.txt", (err, res) => {
 	let arr: string[] = res.toString().split("");
 	let i = 0;
 	while (i >= 0) {
-		const temp: string[] = [arr[i], arr[i + 1], arr[i + 2], arr[i + 3]];
+		const temp: string[] = [];
+		for (let b = i; b < 4 + i; b++) {
+			temp.push(arr[b]);
+		}
 		const unique: string[] = _.uniq(temp);
 		if (unique.length === 4) console.log("first question :", i + 4);
 		if (unique.length === 4) break;
