@@ -23,9 +23,7 @@ fs.readFile("inputs.txt", (err, res) => {
 			temp.push(arr[i]);
 		}
 		const unique: string[] = _.uniq(temp);
-		if (unique.length === 14) {
-			console.log("second question :", a + 14);
-		}
+		if (unique.length === 14) console.log("second question :", a + 14);
 		if (unique.length === 14) break;
 		a++;
 	}

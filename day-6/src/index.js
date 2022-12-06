@@ -26,9 +26,8 @@ fs.readFile("inputs.txt", function (err, res) {
             temp.push(arr[i_1]);
         }
         var unique = _.uniq(temp);
-        if (unique.length === 14) {
+        if (unique.length === 14)
             console.log("second question :", a + 14);
-        }
         if (unique.length === 14)
             break;
         a++;
