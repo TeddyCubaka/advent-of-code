@@ -5,81 +5,80 @@ interface Stack {
 	suite: string[];
 }
 
-let stacks: Stack[] = [];
-let secStacks: Stack[] = [];
+let first_stack_repository: Stack[] = [];
+let second_stack_repository: Stack[] = [];
+let positions: number[] = [];
 
-let position: number[] = [];
-let topCrate: string = "";
-let topCrate2: string = "";
+let top_crater_of_CM_9000: string = "";
+let top_crater_of_CM_9001: string = "";
+
+function CrateMover9000(arr: string[]): string {
+	arr.map((data) => {
+		const crater_moved = data.split(" ");
+		for (let i = 0; i < parseInt(crater_moved[1]); i++) {
+			first_stack_repository[parseInt(crater_moved[5]) - 1].suite.unshift(
+				first_stack_repository[parseInt(crater_moved[3]) - 1].suite[i]
+			);
+		}
+		first_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(0, parseInt(crater_moved[1]));
+	});
+	first_stack_repository.map((data) => {
+		top_crater_of_CM_9000 += data.suite[0];
+	});
+	return top_crater_of_CM_9000;
+}
 
 function CrateMover9001(arr: string[]): string {
 	arr.map((data) => {
-		const move = data.split(" ");
-
-		for (let i = parseInt(move[1]) - 1; i >= 0; i--) {
-			secStacks[parseInt(move[5]) - 1].suite.unshift(
-				secStacks[parseInt(move[3]) - 1].suite[i]
+		const crater_moved = data.split(" ");
+		for (let i = parseInt(crater_moved[1]) - 1; i >= 0; i--) {
+			second_stack_repository[parseInt(crater_moved[5]) - 1].suite.unshift(
+				second_stack_repository[parseInt(crater_moved[3]) - 1].suite[i]
 			);
 		}
-		secStacks[parseInt(move[3]) - 1].suite.splice(0, parseInt(move[1]));
+		second_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(0, parseInt(crater_moved[1]));
 	});
-
-	secStacks.map((data) => {
-		topCrate2 += data.suite[0];
+	second_stack_repository.map((data) => {
+		top_crater_of_CM_9001 += data.suite[0];
 	});
-
-	console.log("second string :", topCrate2);
-	return "";
+	return top_crater_of_CM_9001;
 }
 
 fs.readFile("inputs.txt", (err, data) => {
 	if (err) throw err;
 	const res: string[] = data.toString().split("\n");
-	let myStr = res[res.length - 1];
-
-	myStr.split("").map((data, index) => {
+	res[res.length - 1].split("").map((data, index) => {
 		if (data.charCodeAt(0) >= 65 && data.charCodeAt(0) <= 90)
-			position.push(index);
+			positions.push(index);
 	});
-
-	position.map((index) => {
-		stacks.push({
+	positions.map((index) => {
+		first_stack_repository.push({
 			index: index,
 			suite: [],
 		});
-		secStacks.push({
+		second_stack_repository.push({
 			index: index,
 			suite: [],
 		});
 	});
-
 	res.map((data) => {
 		data.split("").map((str, index) => {
-			if (position.indexOf(index) > -1 && str !== " ") {
-				stacks[position.indexOf(index)].suite.push(str);
-				secStacks[position.indexOf(index)].suite.push(str);
+			if (positions.indexOf(index) > -1 && str !== " ") {
+				first_stack_repository[positions.indexOf(index)].suite.push(str);
+				second_stack_repository[positions.indexOf(index)].suite.push(str);
 			}
 		});
 	});
 
 	fs.readFile("range.txt", (err, res) => {
 		if (err) throw err;
-		CrateMover9001(res.toString().split("\n"));
-		res
-			.toString()
-			.split("\n")
-			.map((data) => {
-				const move = data.split(" ");
-				for (let i = 0; i < parseInt(move[1]); i++) {
-					stacks[parseInt(move[5]) - 1].suite.unshift(
-						stacks[parseInt(move[3]) - 1].suite[i]
-					);
-				}
-				stacks[parseInt(move[3]) - 1].suite.splice(0, parseInt(move[1]));
-			});
-		stacks.map((data) => {
-			topCrate += data.suite[0];
-		});
-		console.log("first string :", topCrate);
+		//first question output
+		console.log("first string :", CrateMover9000(res.toString().split("\n")));
+
+		//second question output
+		console.log(
+			"second question :",
+			CrateMover9001(res.toString().split("\n"))
+		);
 	});
 });

@@ -1,69 +1,69 @@
 "use strict";
 exports.__esModule = true;
 var fs = require("fs");
-var stacks = [];
-var secStacks = [];
-var position = [];
-var topCrate = "";
-var topCrate2 = "";
+var first_stack_repository = [];
+var second_stack_repository = [];
+var positions = [];
+var top_crater_of_CM_9000 = "";
+var top_crater_of_CM_9001 = "";
+function CrateMover9000(arr) {
+    arr.map(function (data) {
+        var crater_moved = data.split(" ");
+        for (var i = 0; i < parseInt(crater_moved[1]); i++) {
+            first_stack_repository[parseInt(crater_moved[5]) - 1].suite.unshift(first_stack_repository[parseInt(crater_moved[3]) - 1].suite[i]);
+        }
+        first_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(0, parseInt(crater_moved[1]));
+    });
+    first_stack_repository.map(function (data) {
+        top_crater_of_CM_9000 += data.suite[0];
+    });
+    return top_crater_of_CM_9000;
+}
 function CrateMover9001(arr) {
     arr.map(function (data) {
-        var move = data.split(" ");
-        for (var i = parseInt(move[1]) - 1; i >= 0; i--) {
-            secStacks[parseInt(move[5]) - 1].suite.unshift(secStacks[parseInt(move[3]) - 1].suite[i]);
+        var crater_moved = data.split(" ");
+        for (var i = parseInt(crater_moved[1]) - 1; i >= 0; i--) {
+            second_stack_repository[parseInt(crater_moved[5]) - 1].suite.unshift(second_stack_repository[parseInt(crater_moved[3]) - 1].suite[i]);
         }
-        secStacks[parseInt(move[3]) - 1].suite.splice(0, parseInt(move[1]));
+        second_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(0, parseInt(crater_moved[1]));
     });
-    secStacks.map(function (data) {
-        topCrate2 += data.suite[0];
+    second_stack_repository.map(function (data) {
+        top_crater_of_CM_9001 += data.suite[0];
     });
-    console.log("second string :", topCrate2);
-    return "";
+    return top_crater_of_CM_9001;
 }
 fs.readFile("inputs.txt", function (err, data) {
     if (err)
         throw err;
     var res = data.toString().split("\n");
-    var myStr = res[res.length - 1];
-    myStr.split("").map(function (data, index) {
+    res[res.length - 1].split("").map(function (data, index) {
         if (data.charCodeAt(0) >= 65 && data.charCodeAt(0) <= 90)
-            position.push(index);
+            positions.push(index);
     });
-    position.map(function (index) {
-        stacks.push({
+    positions.map(function (index) {
+        first_stack_repository.push({
             index: index,
             suite: []
         });
-        secStacks.push({
+        second_stack_repository.push({
             index: index,
             suite: []
         });
     });
     res.map(function (data) {
         data.split("").map(function (str, index) {
-            if (position.indexOf(index) > -1 && str !== " ") {
-                stacks[position.indexOf(index)].suite.push(str);
-                secStacks[position.indexOf(index)].suite.push(str);
+            if (positions.indexOf(index) > -1 && str !== " ") {
+                first_stack_repository[positions.indexOf(index)].suite.push(str);
+                second_stack_repository[positions.indexOf(index)].suite.push(str);
             }
         });
     });
     fs.readFile("range.txt", function (err, res) {
         if (err)
             throw err;
-        CrateMover9001(res.toString().split("\n"));
-        res
-            .toString()
-            .split("\n")
-            .map(function (data) {
-            var move = data.split(" ");
-            for (var i = 0; i < parseInt(move[1]); i++) {
-                stacks[parseInt(move[5]) - 1].suite.unshift(stacks[parseInt(move[3]) - 1].suite[i]);
-            }
-            stacks[parseInt(move[3]) - 1].suite.splice(0, parseInt(move[1]));
-        });
-        stacks.map(function (data) {
-            topCrate += data.suite[0];
-        });
-        console.log("first string :", topCrate);
+        //first question output
+        console.log("first string :", CrateMover9000(res.toString().split("\n")));
+        //second question output
+        console.log("second question :", CrateMover9001(res.toString().split("\n")));
     });
 });
