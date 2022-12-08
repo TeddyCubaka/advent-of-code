@@ -20,7 +20,10 @@ function CrateMover9000(arr: string[]): string {
 				first_stack_repository[parseInt(crater_moved[3]) - 1].suite[i]
 			);
 		}
-		first_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(0, parseInt(crater_moved[1]));
+		first_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(
+			0,
+			parseInt(crater_moved[1])
+		);
 	});
 	first_stack_repository.map((data) => {
 		top_crater_of_CM_9000 += data.suite[0];
@@ -36,7 +39,10 @@ function CrateMover9001(arr: string[]): string {
 				second_stack_repository[parseInt(crater_moved[3]) - 1].suite[i]
 			);
 		}
-		second_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(0, parseInt(crater_moved[1]));
+		second_stack_repository[parseInt(crater_moved[3]) - 1].suite.splice(
+			0,
+			parseInt(crater_moved[1])
+		);
 	});
 	second_stack_repository.map((data) => {
 		top_crater_of_CM_9001 += data.suite[0];
@@ -44,7 +50,7 @@ function CrateMover9001(arr: string[]): string {
 	return top_crater_of_CM_9001;
 }
 
-fs.readFile("inputs.txt", (err, data) => {
+fs.readFile("stacks.txt", (err, data) => {
 	if (err) throw err;
 	const res: string[] = data.toString().split("\n");
 	res[res.length - 1].split("").map((data, index) => {
@@ -70,7 +76,7 @@ fs.readFile("inputs.txt", (err, data) => {
 		});
 	});
 
-	fs.readFile("range.txt", (err, res) => {
+	fs.readFile("instructions.txt", (err, res) => {
 		if (err) throw err;
 		//first question output
 		console.log("first string :", CrateMover9000(res.toString().split("\n")));

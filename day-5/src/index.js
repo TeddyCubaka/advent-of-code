@@ -32,7 +32,7 @@ function CrateMover9001(arr) {
     });
     return top_crater_of_CM_9001;
 }
-fs.readFile("inputs.txt", function (err, data) {
+fs.readFile("stacks.txt", function (err, data) {
     if (err)
         throw err;
     var res = data.toString().split("\n");
@@ -58,7 +58,7 @@ fs.readFile("inputs.txt", function (err, data) {
             }
         });
     });
-    fs.readFile("range.txt", function (err, res) {
+    fs.readFile("instructions.txt", function (err, res) {
         if (err)
             throw err;
         //first question output
