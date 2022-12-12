@@ -3,7 +3,7 @@ exports.__esModule = true;
 var fs = require("fs");
 var first_stack_repository = [];
 var second_stack_repository = [];
-var positions = [];
+var craters_position = [];
 var top_crater_of_CM_9000 = "";
 var top_crater_of_CM_9001 = "";
 function CrateMover9000(arr) {
@@ -38,9 +38,9 @@ fs.readFile("stacks.txt", function (err, data) {
     var res = data.toString().split("\n");
     res[res.length - 1].split("").map(function (data, index) {
         if (data.charCodeAt(0) >= 65 && data.charCodeAt(0) <= 90)
-            positions.push(index);
+            craters_position.push(index);
     });
-    positions.map(function (index) {
+    craters_position.map(function (index) {
         first_stack_repository.push({
             index: index,
             suite: []
@@ -52,9 +52,9 @@ fs.readFile("stacks.txt", function (err, data) {
     });
     res.map(function (data) {
         data.split("").map(function (str, index) {
-            if (positions.indexOf(index) > -1 && str !== " ") {
-                first_stack_repository[positions.indexOf(index)].suite.push(str);
-                second_stack_repository[positions.indexOf(index)].suite.push(str);
+            if (craters_position.indexOf(index) > -1 && str !== " ") {
+                first_stack_repository[craters_position.indexOf(index)].suite.push(str);
+                second_stack_repository[craters_position.indexOf(index)].suite.push(str);
             }
         });
     });

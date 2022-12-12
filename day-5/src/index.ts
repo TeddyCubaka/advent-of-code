@@ -7,7 +7,7 @@ interface Stack {
 
 let first_stack_repository: Stack[] = [];
 let second_stack_repository: Stack[] = [];
-let positions: number[] = [];
+let craters_position: number[] = [];
 
 let top_crater_of_CM_9000: string = "";
 let top_crater_of_CM_9001: string = "";
@@ -55,9 +55,9 @@ fs.readFile("stacks.txt", (err, data) => {
 	const res: string[] = data.toString().split("\n");
 	res[res.length - 1].split("").map((data, index) => {
 		if (data.charCodeAt(0) >= 65 && data.charCodeAt(0) <= 90)
-			positions.push(index);
+			craters_position.push(index);
 	});
-	positions.map((index) => {
+	craters_position.map((index) => {
 		first_stack_repository.push({
 			index: index,
 			suite: [],
@@ -69,9 +69,9 @@ fs.readFile("stacks.txt", (err, data) => {
 	});
 	res.map((data) => {
 		data.split("").map((str, index) => {
-			if (positions.indexOf(index) > -1 && str !== " ") {
-				first_stack_repository[positions.indexOf(index)].suite.push(str);
-				second_stack_repository[positions.indexOf(index)].suite.push(str);
+			if (craters_position.indexOf(index) > -1 && str !== " ") {
+				first_stack_repository[craters_position.indexOf(index)].suite.push(str);
+				second_stack_repository[craters_position.indexOf(index)].suite.push(str);
 			}
 		});
 	});
